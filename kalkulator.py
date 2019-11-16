@@ -25,6 +25,8 @@ def evaluate(parsed_content_body):
         return op_map[type(parsed_content_body.op)](evaluate(parsed_content_body.operand))
     if ((sys.version_info[0]<=2) or (sys.version_info[0] ==3 and sys.version_info[1] <=7)) and isinstance(parsed_content_body,ast.Num):
         return parsed_content_body.n
+    if ((sys.version_info[0]==3 and sys.version_info[1]>=8) or (sys.version_info[0]>3) ) and isinstance(parsed_content_body,ast.Constant):
+        return  parsed_content_body.n
 
 # Input the operation and parse this operation
 math_action = input("Enter a mathematical operation: ")
