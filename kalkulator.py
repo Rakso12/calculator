@@ -20,16 +20,25 @@ def evaluate(parsed_content_body):
     if isinstance(parsed_content_body,ast.Expr):
         return evaluate(parsed_content_body.value)
     if isinstance(parsed_content_body,ast.BinOp):
-        return op_map[type(parsed_content_body.op)](evaluate(parsed_content_body.left),evaluate(parsed_content_body.right))
+        try:
+            return op_map[type(parsed_content_body.op)](evaluate(parsed_content_body.left),evaluate(parsed_content_body.right))
+        except KeyError:
+            raise ValueError("Unsupported operator: %s" % parsed_content_body.op)
     if isinstance(parsed_content_body,ast.UnaryOp):
-        return op_map[type(parsed_content_body.op)](evaluate(parsed_content_body.operand))
+        try:
+            return op_map[type(parsed_content_body.op)](evaluate(parsed_content_body.operand))
+        except KeyError:
+            raise ValueError("Unsupported operator: %s" % parsed_content_body.op)
     if ((sys.version_info[0]<=2) or (sys.version_info[0] ==3 and sys.version_info[1] <=7)) and isinstance(parsed_content_body,ast.Num):
         return parsed_content_body.n
     if ((sys.version_info[0]==3 and sys.version_info[1]>=8) or (sys.version_info[0]>3) ) and isinstance(parsed_content_body,ast.Constant):
         return  parsed_content_body.n
+    raise TypeError("Nieznany typ operacji {}".format(type(parsed_content_body)))
+
 
 # Input the operation and parse this operation
 math_action = input("Enter a mathematical operation: ")
+print(math_action)
 parse = ast.parse(math_action).body
 
 # Return the result of the operation
