@@ -2,6 +2,7 @@
 
 import ast
 import operator
+import sys
 
 # A dictionary of operation
 op_map = {
@@ -22,7 +23,7 @@ def evaluate(parsed_content_body):
         return op_map[type(parsed_content_body.op)](evaluate(parsed_content_body.left),evaluate(parsed_content_body.right))
     if isinstance(parsed_content_body,ast.UnaryOp):
         return op_map[type(parsed_content_body.op)](evaluate(parsed_content_body.operand))
-    if isinstance(parsed_content_body,ast.Num):
+    if ((sys.version_info[0]<=2) or (sys.version_info[0] ==3 and sys.version_info[1] <=7)) and isinstance(parsed_content_body,ast.Num):
         return parsed_content_body.n
 
 # Input the operation and parse this operation
