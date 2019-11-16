@@ -16,7 +16,7 @@ op_map = {
 
 # A dictionary of constants
 cons_dict = {
-    "pi": math.pi
+    "pi": math.pi,
     "e": math.e
 }
 
