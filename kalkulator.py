@@ -3,6 +3,7 @@
 import ast
 import operator
 
+# A dictionary of operation
 op_map = {
         ast.Add: operator.add,
         ast.Sub: operator.sub,
@@ -11,6 +12,7 @@ op_map = {
         ast.USub: operator.neg
     }
 
+# A function that parse and calculate the content of a tree
 def evaluate(parsed_content_body):
     if isinstance(parsed_content_body,list):
         return [evaluate(variable) for variable in parsed_content_body]
@@ -23,12 +25,13 @@ def evaluate(parsed_content_body):
     if isinstance(parsed_content_body,ast.Num):
         return parsed_content_body.n
 
+# Input the operation and parse this operation
+math_action = input("Enter a mathematical operation: ")
+parse = ast.parse(math_action).body
 
-cos = input("Podaj działanie: ")
-parse = ast.parse(cos).body
+# Return the result of the operation
 print(evaluate(parse))
 
-print(type(ast.parse(cos).body[0].value.op))
 '''
 print(type(ast.parse(cos).body[0].value))
 print(dir(ast.parse(cos).body[0].value))
