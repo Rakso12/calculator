@@ -1,4 +1,5 @@
-#kalkulator
+#Calculator - Version 1.3
+#Autor: Monika Skrobacz and Oskar Tyniec
 
 import ast
 import operator
@@ -18,6 +19,16 @@ op_map = {
 cons_dict = {
     "pi": math.pi,
     "e": math.e
+}
+
+# A dictionary of trigonometric functions
+trig_dict = {
+    "sin": math.sin(argument),
+    "cos": math.cos(agrument),
+    "tg": math.tan(argument),
+    "arcsin": math.asin(argument),
+    "arccos": math.acos(argument),
+    "arctg": math.atan(argument)
 }
 
 # A function that parse and calculate the content of a tree
@@ -61,9 +72,3 @@ parse = ast.parse(math_action).body
 
 # Return the result of the operation
 print(evaluate(parse))
-
-'''
-print(type(ast.parse(cos).body[0].value))
-print(dir(ast.parse(cos).body[0].value))
-print(ast.parse(cos).body[0].value)
-'''
