@@ -22,7 +22,7 @@ cons_dict = {
 }
 
 # A dictionary of trigonometric functions
-trig_dict = {
+func_dict = {
     "sin": math.sin,
     "cos": math.cos,
     "tg": math.tan,
@@ -65,7 +65,7 @@ def evaluate(parsed_content_body):
     raise TypeError("Unsupported type of operation {}".format(type(parsed_content_body)))
 
     if isinstance(parsed_content_body,ast.Call):
-        return evaluate(parsed_content_body.args)
+        return func_dict[pared_content_body.func.id](*evaluate(parsed_content_body.args))
 
 # Input the operation and parse this operation
 math_action = input("Enter a mathematical operation: ")
