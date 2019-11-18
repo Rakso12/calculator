@@ -69,6 +69,9 @@ def evaluate(parsed_content_body):
     if ((sys.version_info[0]==3 and sys.version_info[1]>=8) or (sys.version_info[0]>3)) and isinstance(parsed_content_body,ast.Constant):
         return  parsed_content_body.n
 
+    raise TypeError("Unsupported type of operation {}".format(type(parsed_content_body)))
+
+
 # Input the operation and parse this operation
 math_action = input("Enter a mathematical operation: ")
 print(math_action)
