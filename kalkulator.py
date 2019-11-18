@@ -23,12 +23,12 @@ cons_dict = {
 
 # A dictionary of trigonometric functions
 trig_dict = {
-    "sin": math.sin(argument),
-    "cos": math.cos(agrument),
-    "tg": math.tan(argument),
-    "arcsin": math.asin(argument),
-    "arccos": math.acos(argument),
-    "arctg": math.atan(argument)
+    "sin": math.sin,
+    "cos": math.cos,
+    "tg": math.tan,
+    "arcsin": math.asin,
+    "arccos": math.acos,
+    "arctg": math.atan
 }
 
 # A function that parse and calculate the content of a tree
@@ -64,6 +64,8 @@ def evaluate(parsed_content_body):
         return  parsed_content_body.n
     raise TypeError("Unsupported type of operation {}".format(type(parsed_content_body)))
 
+    if isinstance(parsed_content_body,ast.Call):
+        return evaluate(parsed_content_body.args)
 
 # Input the operation and parse this operation
 math_action = input("Enter a mathematical operation: ")
