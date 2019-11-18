@@ -51,24 +51,23 @@ def evaluate(parsed_content_body):
         except KeyError:
             raise ValueError("Unsupported operator: %s" % parsed_content_body.op)
 
+# Constants result
     if isinstance(parsed_content_body,ast.Name):
         try:
             return cons_dict[parsed_content_body.id]
         except KeyError:
             raise ValueError("Unsupported constant: %s" % parsed_content_body.id)
 
-    if ((sys.version_info[0]<=2) or (sys.version_info[0] ==3 and sys.version_info[1] <=7)) and isinstance(parsed_content_body,ast.Num):
-        return parsed_content_body.n
-
-    if ((sys.version_info[0]==3 and sys.version_info[1]>=8) or (sys.version_info[0]>3) ) and isinstance(parsed_content_body,ast.Constant):
-        try:
-            return  parsed_content_body.n
-        except TypeError:
-            raise TypeError("Unsupported type of operation {}".format(type(parsed_content_body)))
-
+# Math function result
     if isinstance(parsed_content_body,ast.Call):
         return func_dict[parsed_content_body.func.id](*evaluate(parsed_content_body.args))
 
+# Version control and return result
+    if ((sys.version_info[0]<=2) or (sys.version_info[0] ==3 and sys.version_info[1] <=7)) and isinstance(parsed_content_body,ast.Num):
+        return parsed_content_body.n
+
+    if ((sys.version_info[0]==3 and sys.version_info[1]>=8) or (sys.version_info[0]>3)) and isinstance(parsed_content_body,ast.Constant):
+        return  parsed_content_body.n
 
 # Input the operation and parse this operation
 math_action = input("Enter a mathematical operation: ")
