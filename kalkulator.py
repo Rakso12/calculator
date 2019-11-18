@@ -61,11 +61,14 @@ def evaluate(parsed_content_body):
         return parsed_content_body.n
 
     if ((sys.version_info[0]==3 and sys.version_info[1]>=8) or (sys.version_info[0]>3) ) and isinstance(parsed_content_body,ast.Constant):
-        return  parsed_content_body.n
-    raise TypeError("Unsupported type of operation {}".format(type(parsed_content_body)))
+        try:
+            return  parsed_content_body.n
+        except TypeError:
+            raise TypeError("Unsupported type of operation {}".format(type(parsed_content_body)))
 
     if isinstance(parsed_content_body,ast.Call):
-        return func_dict[pared_content_body.func.id](*evaluate(parsed_content_body.args))
+        return func_dict[parsed_content_body.func.id](*evaluate(parsed_content_body.args))
+
 
 # Input the operation and parse this operation
 math_action = input("Enter a mathematical operation: ")
