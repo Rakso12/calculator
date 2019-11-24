@@ -29,7 +29,8 @@ func_dict = {
     "arcsin": math.asin,
     "arccos": math.acos,
     "arctg": math.atan,
-    "pow":math.pow
+    "pow": math.pow,
+    "log": math.log
 }
 
 # A function that parse and calculate the content of a tree
